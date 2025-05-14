@@ -36,10 +36,9 @@ export function AuthForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true); // Start loading
+    setIsSubmitting(true); 
     try {
       if (isSignUp) {
-        // Sign Up
         const res = await axios.post(`${BACKENDURL}/auth/signup`, {
           name: formData.username,
           email: formData.email,
@@ -49,7 +48,6 @@ export function AuthForm() {
         if (res.status === 201) {
           toast.success("Signup successful");
 
-          // Automatically sign in
           const loginRes = await axios.post(`${BACKENDURL}/auth/signin`, {
             email: formData.email,
             password: formData.password,
@@ -60,8 +58,8 @@ export function AuthForm() {
            
              const token = loginRes.data.token
             setToken(token);
-            router.push("/home"); // redirect to a protected page
-            toast.success(token);
+            router.push("/home"); 
+            toast.success("signin successfull");
           }
           
         }
@@ -88,7 +86,7 @@ export function AuthForm() {
       toast.error(error?.response?.data?.message || "Something went wrong");
       console.error("Error:", error);
     } finally {
-      setIsSubmitting(false); // End loading
+      setIsSubmitting(false); 
     }
   };
 
