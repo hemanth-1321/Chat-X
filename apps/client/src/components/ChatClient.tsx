@@ -6,6 +6,7 @@ import { UserIcon, SendHorizonal } from "lucide-react";
 import jwt from "jsonwebtoken";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
+import Image from "next/image";
 
 type ChatMessage = {
   id: number;
@@ -18,6 +19,13 @@ type ChatMessage = {
     email: string;
     avatar: string | null;
   };
+};
+
+type EmojiSelectEvent = {
+  id: string;
+  name: string;
+  native: string;
+  unified: string;
 };
 
 export function ChatClient({
@@ -62,7 +70,6 @@ export function ChatClient({
 
       socket.onmessage = (event) => {
         const parsedData = JSON.parse(event.data);
-        console.log("Socket message received:", parsedData);
 
         const receivedMessage: ChatMessage = {
           id: Date.now(),
@@ -76,6 +83,7 @@ export function ChatClient({
             avatar: null,
           },
         };
+
         setChats((prev) => [...prev, receivedMessage]);
       };
 
@@ -126,7 +134,7 @@ export function ChatClient({
     if (e.key === "Enter") handleSendMessage();
   };
 
-  const handleEmojiSelect = (emoji: any) => {
+  const handleEmojiSelect = (emoji: EmojiSelectEvent) => {
     setNewMessage((prev) => prev + emoji.native);
   };
 
@@ -146,7 +154,7 @@ export function ChatClient({
                 }`}
               >
                 {chat.user?.avatar ? (
-                  <img
+                  <Image
                     src={chat.user.avatar}
                     alt={chat.user.name}
                     className="w-8 h-8 rounded-full object-cover"

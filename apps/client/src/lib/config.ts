@@ -1,3 +1,3 @@
-export const BACKENDURL = "http://localhost:3001";
+export const BACKENDURL = "https://chatserver.hemanth.buzz";
 
-export const WS_URL = "ws://localhost:8080";
+export const WS_URL = "wss://chat.hemanth.buzz";

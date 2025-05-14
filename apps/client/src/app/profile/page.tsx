@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Calendar, Globe2, LocateIcon } from 'lucide-react'
+import { Globe2, LocateIcon } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import axios from 'axios'
@@ -71,13 +71,13 @@ export default function ProfileCard() {
   if (!user) return <p className="text-center text-gray-500 dark:text-gray-300 mt-20">Loading...</p>
 
   return (
-    <div className="flex justify-center items-center mt-28 px-4 ">
-      <div className="w-full max-w-2xl bg-gray-400 dark:bg-gray-950 backdrop-blur-md p-6 rounded-2xl shadow-xl space-y-6 text-white border border-white/10">
+    <div className="flex justify-center items-center mt-28 px-4 text-black dark:text-white ">
+      <div className="w-full max-w-2xl bg-gray-400 dark:bg-gray-700 backdrop-blur-md p-6 rounded-2xl shadow-xl space-y-6 text-white border border-white/10">
 
         <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
           <Avatar className="w-20 h-20">
             <AvatarImage src="/avatar.jpg" alt="Profile photo" />
-            <AvatarFallback className='text-black'>
+            <AvatarFallback className='text-black dark:text-white'>
               {(user.name?.slice(0, 2) || '??').toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -145,10 +145,7 @@ export default function ProfileCard() {
                 )}
               </div>
 
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                <span className="text-gray-700 dark:text-gray-400">Joined {new Date(user.createdAt).toLocaleDateString()}</span>
-              </div>
+            
             </div>
           </div>
         </div>

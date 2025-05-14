@@ -1,3 +1,4 @@
+"use client";
 import { create } from "zustand";
 
 type AuthState = {
@@ -6,7 +7,7 @@ type AuthState = {
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  token: null,
   setToken: (token) => {
     if (typeof window !== "undefined") {
       if (token) {

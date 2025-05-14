@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BACKENDURL } from "@/lib/config";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -28,7 +28,7 @@ export function AuthForm() {
       if(token){
         router.push("/home")
       }
-    },[])
+    },[router])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -82,10 +82,11 @@ export function AuthForm() {
           router.push("/home");
         }
       }
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Something went wrong");
-      console.error("Error:", error);
-    } finally {
+    } catch (error: unknown) {
+  const err = error as AxiosError<{ message: string }>;
+  toast.error(err?.response?.data?.message || "Something went wrong");
+  console.error("Error:", err);
+} finally {
       setIsSubmitting(false); 
     }
   };
